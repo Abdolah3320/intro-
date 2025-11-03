@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics Question Bank</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #306998, #4B8BBE);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .stats-bar {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stats-item {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .stats-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #306998;
+        }
+        
+        .stats-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        button, select {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        button {
+            background-color: #306998;
+            color: white;
+        }
+        
+        button:hover {
+            background-color: #25567c;
+            transform: translateY(-2px);
+        }
+        
+        select {
+            background-color: white;
+            border: 1px solid #ddd;
+        }
+        
+        .questions-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .question-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: #306998;
+            font-size: 1.1rem;
+        }
+        
+        .question-type {
+            background-color: #e8f4fd;
+            color: #306998;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .options {
+            margin-left: 20px;
+        }
+        
+        .option {
+            margin-bottom: 8px;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .option input {
+            margin-right: 10px;
+        }
+        
+        .answer-section {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f5e9;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .correct-answer {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        
+        .explanation {
+            margin-top: 5px;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .show-answer {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .show-answer:hover {
+            background-color: #388e3c;
+        }
+        
+        .code-block {
+            background-color: #f8f8f8;
+            border-left: 4px solid #306998;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (min-width: 768px) {
+            .questions-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .questions-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Python Basics Question Bank</h1>
+        </header>
+        
+        <div class="stats-bar">
+            <div class="stats-item">
+                <div class="stats-value">100</div>
+                <div class="stats-label">Total Questions</div>
+            </div>
+            <div class="stats-item">
+                <div class="stats-value">50</div>
+                <div class="stats-label">MCQ Questions</div>
+            </div>
+            <div class="stats-item">
+                <div class="stats-value">30</div>
+                <div class="stats-label">True/False Questions</div>
+            </div>
+            <div class="stats-item">
+                <div class="stats-value">20</div>
+                <div class="stats-label">Written Questions</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="filter-group">
+                <select id="topic-filter">
+                    <option value="all">All Topics</option>
+                    <option value="computer">Computer Basics</option>
+                    <option value="python-intro">Python Introduction</option>
+                    <option value="variables">Variables & Data Types</option>
+                    <option value="operators">Operators</option>
+                    <option value="control">Control Structures</option>
+                    <option value="functions">Functions</option>
+                </select>
+                
+                <select id="type-filter">
+                    <option value="all">All Types</option>
+                    <option value="mcq">MCQ Only</option>
+                    <option value="tf">True/False Only</option>
+                    <option value="written">Written Only</option>
+                </select>
+            </div>
+            
+            <button id="check-answers">Check All Answers</button>
+        </div>
+        
+        <div class="questions-container" id="questions-container">
+            <!-- Questions will be dynamically inserted here -->
+        </div>
+        
+        <footer>
+            <p>Python Basics Question Bank &copy; 2025 - Master Python Programming Fundamentals</p>
+        </footer>
+    </div>
+
+    <script>
+        // Question data
+        const questions = [
+            // Computer Basics (15 questions)
+            {
+                id: 1,
+                topic: "computer",
+                type: "mcq",
+                question: "What is the brain of a computer system?",
+                options: [
+                    "CPU",
+                    "RAM",
+                    "Hard Disk",
+                    "Motherboard"
+                ],
+                correctAnswer: 0,
+                explanation: "The CPU (Central Processing Unit) is often called the brain of the computer as it processes all instructions and calculations."
+            },
+            {
+                id: 2,
+                topic: "computer",
+                type: "tf",
+                question: "RAM is a type of volatile memory.",
+                correctAnswer: true,
+                explanation: "RAM (Random Access Memory) is volatile, meaning it loses its data when the computer is turned off."
+            },
+            {
+                id: 3,
+                topic: "computer",
+                type: "written",
+                question: "Explain the difference between hardware and software with examples.",
+                correctAnswer: "Hardware refers to physical components of a computer (e.g., CPU, keyboard, monitor). Software refers to programs and applications that run on hardware (e.g., operating systems, web browsers, Python interpreter).",
+                explanation: "Hardware is tangible, while software is intangible code that instructs hardware on what to do."
+            },
+            {
+                id: 4,
+                topic: "computer",
+                type: "mcq",
+                question: "Which component stores data permanently?",
+                options: [
+                    "Hard Disk",
+                    "RAM",
+                    "CPU Cache",
+                    "ROM"
+                ],
+                correctAnswer: 0,
+                explanation: "Hard disks provide non-volatile storage, meaning data persists even when the computer is turned off."
+            },
+            {
+                id: 5,
+                topic: "computer",
+                type: "mcq",
+                question: "What does CPU stand for?",
+                options: [
+                    "Central Processing Unit",
+                    "Computer Processing Unit",
+                    "Central Program Unit",
+                    "Computer Program Unit"
+                ],
+                correctAnswer: 0,
+                explanation: "CPU stands for Central Processing Unit, the primary component that executes instructions in a computer."
+            },
+            {
+                id: 6,
+                topic: "computer",
+                type: "tf",
+                question: "An operating system is an example of application software.",
+                correctAnswer: false,
+                explanation: "An operating system is system software, not application software. Application software includes programs like word processors and web browsers."
+            },
+            {
+                id: 7,
+                topic: "computer",
+                type: "written",
+                question: "What is the purpose of an operating system?",
+                correctAnswer: "An operating system manages computer hardware and software resources, provides common services for computer programs, and acts as an intermediary between users and computer hardware.",
+                explanation: "The OS handles tasks like memory management, process scheduling, file management, and providing a user interface."
+            },
+            {
+                id: 8,
+                topic: "computer",
+                type: "mcq",
+                question: "Which of these is an input device?",
+                options: [
+                    "Keyboard",
+                    "Monitor",
+                    "Printer",
+                    "Speakers"
+                ],
+                correctAnswer: 0,
+                explanation: "A keyboard is an input device that allows users to enter data into a computer."
+            },
+            {
+                id: 9,
+                topic: "computer",
+                type: "mcq",
+                question: "What is the smallest unit of data in computing?",
+                options: [
+                    "Bit",
+                    "Byte",
+                    "Kilobyte",
+                    "Nibble"
+                ],
+                correctAnswer: 0,
+                explanation: "A bit (binary digit) is the smallest unit of data, representing either 0 or 1."
+            },
+            {
+                id: 10,
+                topic: "computer",
+                type: "tf",
+                question: "All programming languages are directly understood by computer hardware.",
+                correctAnswer: false,
+                explanation: "Computer hardware only understands machine language (binary). High-level programming languages like Python need to be translated to machine code."
+            },
+            {
+                id: 11,
+                topic: "computer",
+                type: "mcq",
+                question: "What does RAM stand for?",
+                options: [
+                    "Random Access Memory",
+                    "Read Access Memory",
+                    "Random Allocation Memory",
+                    "Read Allocation Memory"
+                ],
+                correctAnswer: 0,
+                explanation: "RAM stands for Random Access Memory, which allows data to be accessed in any random order."
+            },
+            {
+                id: 12,
+                topic: "computer",
+                type: "written",
+                question: "What is the difference between compiler and interpreter?",
+                correctAnswer: "A compiler translates the entire program at once into machine code before execution. An interpreter translates and executes the program line by line.",
+                explanation: "Compiled languages typically run faster, while interpreted languages offer more flexibility during development."
+            },
+            {
+                id: 13,
+                topic: "computer",
+                type: "mcq",
+                question: "Which of these is NOT a programming language?",
+                options: [
+                    "HTML",
+                    "Python",
+                    "Java",
+                    "C++"
+                ],
+                correctAnswer: 0,
+                explanation: "HTML is a markup language used for creating web pages, not a programming language for writing algorithms."
+            },
+            {
+                id: 14,
+                topic: "computer",
+                type: "tf",
+                question: "Python is a compiled language.",
+                correctAnswer: false,
+                explanation: "Python is an interpreted language, not a compiled language."
+            },
+            {
+                id: 15,
+                topic: "computer",
+                type: "mcq",
+                question: "What is the purpose of a compiler?",
+                options: [
+                    "To translate high-level code to machine code",
+                    "To execute Python programs",
+                    "To manage computer memory",
+                    "To create user interfaces"
+                ],
+                correctAnswer: 0,
+                explanation: "A compiler translates code written in a high-level programming language to machine code that can be executed by a computer."
+
+            },
+            // Python Introduction (15 questions)
+            {
+                id: 16,
+                topic: "python-intro",
+                type: "mcq",
+                question: "Who created the Python programming language?",
+                options: [
+                    "Guido van Rossum",
+                    "James Gosling",
+                    "Bjarne Stroustrup",
+                    "Dennis Ritchie"
+                ],
+                correctAnswer: 0,
+                explanation: "Python was created by Guido van Rossum and first released in 1991."
+            },
+            {
+                id: 17,
+                topic: "python-intro",
+                type: "tf",
+                question: "Python is named after the snake species.",
+                correctAnswer: false,
+                explanation: "Python is named after the British comedy troupe Monty Python, not the snake."
+            },
+            {
+                id: 18,
+                topic: "python-intro",
+                type: "written",
+                question: "What are the key features of Python?",
+                correctAnswer: "Key features include: easy to learn and read, interpreted language, dynamically typed, object-oriented, extensive standard library, cross-platform compatibility.",
+                explanation: "These features make Python popular for beginners and professionals alike."
+            },
+            {
+                id: 19,
+                topic: "python-intro",
+                type: "mcq",
+                question: "What is the correct file extension for Python files?",
+                options: [
+                    ".py",
+                    ".python",
+                    ".pt",
+                    ".pyt"
+                ],
+                correctAnswer: 0,
+                explanation: "Python source code files use the .py extension."
+            },
+            {
+                id: 20,
+                topic: "python-intro",
+                type: "mcq",
+                question: "Which of these is NOT a valid Python implementation?",
+                options: [
+                    "Python.NET",
+                    "CPython",
+                    "Jython",
+                    "IronPython"
+                ],
+                correctAnswer: 0,
+                explanation: "CPython is the standard implementation, Jython runs on Java, IronPython on .NET, but Python.NET doesn't exist."
+            },
+            {
+                id: 21,
+                topic: "python-intro",
+                type: "tf",
+                question: "Python uses semicolons to end statements.",
+                correctAnswer: false,
+                explanation: "Python uses newlines to separate statements, though semicolons can be used to put multiple statements on one line."
+            },
+            {
+                id: 22,
+                topic: "python-intro",
+                type: "written",
+                question: "What is the Python interpreter?",
+                correctAnswer: "The Python interpreter is a program that reads and executes Python code. It translates Python code into bytecode and then executes it.",
+                explanation: "CPython, the most common implementation, compiles Python to bytecode which is then executed by the Python Virtual Machine."
+            },
+            {
+                id: 23,
+                topic: "python-intro",
+                type: "mcq",
+                question: "Which mode allows executing Python code line by line?",
+                options: [
+                    "Interactive mode",
+                    "Script mode",
+                    "Compiler mode",
+                    "Batch mode"
+                ],
+                correctAnswer: 0,
+                explanation: "Interactive mode allows executing Python commands one at a time, ideal for testing and learning."
+            },
+            {
+                id: 24,
+                topic: "python-intro",
+                type: "mcq",
+                question: "What does PEP stand for in Python?",
+                options: [
+                    "Python Enhancement Proposal",
+                    "Python Execution Process",
+                    "Python Education Program",
+                    "Python Extension Package"
+                ],
+                correctAnswer: 0,
+                explanation: "PEP stands for Python Enhancement Proposal - design documents providing information to the Python community."
+            },
+            {
+                id: 25,
+                topic: "python-intro",
+                type: "tf",
+                question: "Python 2 and Python 3 are completely compatible.",
+                correctAnswer: false,
+                explanation: "Python 3 introduced breaking changes and is not backward compatible with Python 2."
+            },
+            {
+                id: 26,
+                topic: "python-intro",
+                type: "written",
+                question: "How do you run a Python script from the command line?",
+                correctAnswer: "Use the command: python filename.py (or python3 filename.py on some systems)",
+                explanation: "This command tells the Python interpreter to execute the code in the specified file."
+            },
+            {
+                id: 27,
+                topic: "python-intro",
+                type: "mcq",
+                question: "Which of these is a valid Python comment?",
+                options: [
+                    "# This is a comment",
+                    "// This is a comment",
+                    "/* This is a comment */",
+                    "<!-- This is a comment -->"
+                ],
+                correctAnswer: 0,
+                explanation: "Python uses the # symbol for single-line comments."
+            },
+            {
+                id: 28,
+                topic: "python-intro",
+                type: "tf",
+                question: "Python is a case-sensitive language.",
+                correctAnswer: true,
+                explanation: "Python distinguishes between uppercase and lowercase letters, so 'Variable' and 'variable' would be different identifiers."
+            },
+            {
+                id: 29,
+                topic: "python-intro",
+                type: "mcq",
+                question: "What is the Python philosophy principle that states 'There should be one-- and preferably only one --obvious way to do it'?",
+                options: [
+                    "The Zen of Python",
+                    "Pythonic Way",
+                    "PEP 20",
+                    "All of the above"
+                ],
+                correctAnswer: 3,
+                explanation: "This principle is part of The Zen of Python (PEP 20), which guides Python's design philosophy."
+            },
+            {
+                id: 30,
+                topic: "python-intro",
+                type: "written",
+                question: "What is the difference between Python's interactive mode and script mode?",
+                correctAnswer: "Interactive mode executes one command at a time and shows results immediately. Script mode runs a complete program stored in a file.",
+                explanation: "Interactive mode is great for testing small code snippets, while script mode is used for developing full applications."
+            },
+            // Variables & Data Types (20 questions)
+            {
+                id: 31,
+                topic: "variables",
+                type: "mcq",
+                question: "Which of these is a valid variable name in Python?",
+                options: [
+                    "my_variable",
+                    "2nd_variable",
+                    "my-variable",
+                    "global"
+                ],
+                correctAnswer: 0,
+                explanation: "Variable names can contain letters, numbers, and underscores but cannot start with a number or contain hyphens."
+            },
+            {
+                id: 32,
+                topic: "variables",
+                type: "tf",
+                question: "Python variables must be declared with a specific data type.",
+                correctAnswer: false,
+                explanation: "Python is dynamically typed, so variables don't need explicit type declaration."
+            },
+            {
+                id: 33,
+                topic: "variables",
+                type: "written",
+                question: "What are the basic data types in Python?",
+                correctAnswer: "Basic data types include: int (integer), float (floating point), str (string), bool (boolean), list, tuple, dict (dictionary), set.",
+                explanation: "Python has several built-in data types for different kinds of data."
+            },
+            {
+                id: 34,
+                topic: "variables",
+                type: "mcq",
+                question: "What is the output of: print(type(3.14))",
+                options: [
+                    "<class 'float'>",
+                    "<class 'int'>",
+                    "<class 'double'>",
+                    "<class 'number'>"
+                ],
+                correctAnswer: 0,
+                explanation: "Numbers with decimal points are float type in Python."
+            },
+            {
+                id: 35,
+                topic: "variables",
+                type: "mcq",
+                question: "Which data type is immutable?",
+                options: [
+                    "Tuple",
+                    "List",
+                    "Dictionary",
+                    "Set"
+                ],
+                correctAnswer: 0,
+                explanation: "Tuples are immutable, meaning their elements cannot be changed after creation."
+            },
+            {
+                id: 36,
+                topic: "variables",
+                type: "tf",
+                question: "In Python, strings are mutable.",
+                correctAnswer: false,
+                explanation: "Strings in Python are immutable - you cannot change individual characters in an existing string."
+            },
+            {
+                id: 37,
+                topic: "variables",
+                type: "written",
+                question: "What is the difference between a list and a tuple?",
+                correctAnswer: "Lists are mutable (can be modified) and use square brackets []. Tuples are immutable (cannot be modified) and use parentheses ().",
+                explanation: "Use lists when you need to modify the collection, tuples when the data shouldn't change."
+            },
+            {
+                id: 38,
+                topic: "variables",
+                type: "mcq",
+                question: "What will be the output of: print(10 / 3)",
+                options: [
+                    "3.3333333333333335",
+                    "3",
+                    "3.0",
+                    "Error"
+                ],
+                correctAnswer: 0,
+                explanation: "The / operator always returns a float, even if the result is a whole number."
+            },
+            {
+                id: 39,
+                topic: "variables",
+                type: "mcq",
+                question: "Which method would you use to convert a string to lowercase?",
+                options: [
+                    "lower()",
+                    "tolower()",
+                    "casefold()",
+                    "Both A and C"
+                ],
+                correctAnswer: 3,
+                explanation: "Both lower() and casefold() can convert strings to lowercase, with casefold() being more aggressive for case-insensitive comparisons."
+            },
+            {
+                id: 40,
+                topic: "variables",
+                type: "tf",
+                question: "In Python, variables are passed by reference to functions.",
+                correctAnswer: true,
+                explanation: "Python uses pass-by-object-reference, where the reference to the object is passed, not a copy of the object itself."
+            },
+            {
+                id: 41,
+                topic: "variables",
+                type: "written",
+                question: "What is type casting in Python? Give an example.",
+                correctAnswer: "Type casting is converting one data type to another. Example: int('5') converts the string '5' to integer 5.",
+                explanation: "Python provides built-in functions like int(), float(), str() for type conversion."
+            },
+            {
+                id: 42,
+                topic: "variables",
+                type: "mcq",
+                question: "What is the output of: print('Hello' * 3)",
+                options: [
+                    "HelloHelloHello",
+                    "Hello3",
+                    "Error",
+                    "Hello Hello Hello"
+                ],
+                correctAnswer: 0,
+                explanation: "The * operator with strings performs repetition, not multiplication."
+            },
+            {
+                id: 43,
+                topic: "variables",
+                type: "mcq",
+                question: "Which of these creates an empty dictionary?",
+                options: [
+                    "{}",
+                    "[]",
+                    "()",
+                    "set()"
+                ],
+                correctAnswer: 0,
+                explanation: "Curly braces {} create an empty dictionary. For sets, you need to use set()."
+            },
+            {
+                id: 44,
+                topic: "variables",
+                type: "tf",
+                question: "The None keyword in Python is equivalent to 0 or False.",
+                correctAnswer: false,
+                explanation: "None represents the absence of a value, not zero or false. It's a singleton object of its own datatype."
+            },
+            {
+                id: 45,
+                topic: "variables",
+                type: "written",
+                question: "What is list comprehension in Python? Provide an example.",
+                correctAnswer: "List comprehension is a concise way to create lists. Example: squares = [x**2 for x in range(5)] creates [0, 1, 4, 9, 16].",
+                explanation: "List comprehensions are more readable and often faster than traditional for loops for creating lists."
+            },
+            {
+                id: 46,
+                topic: "variables",
+                type: "mcq",
+                question: "What will be the value of x after: x = [1, 2, 3]; y = x; y.append(4)",
+                options: [
+                    "[1, 2, 3, 4]",
+                    "[1, 2, 3]",
+                    "Error",
+                    "[4]"
+                ],
+                correctAnswer: 0,
+                explanation: "Both x and y reference the same list object, so modifying through either variable affects the same list."
+            },
+            {
+                id: 47,
+                topic: "variables",
+                type: "mcq",
+                question: "Which method removes and returns the last element from a list?",
+                options: [
+                    "pop()",
+                    "remove()",
+                    "delete()",
+                    "cut()"
+                ],
+                correctAnswer: 0,
+                explanation: "The pop() method removes and returns the last element by default, or the element at a specified index."
+            },
+            {
+                id: 48,
+                topic: "variables",
+                type: "tf",
+                question: "In Python, all variables are objects.",
+                correctAnswer: true,
+                explanation: "In Python, everything is an object - integers, strings, functions, classes, etc."
+            },
+            {
+                id: 49,
+                topic: "variables",
+                type: "written",
+                question: "What is the difference between shallow copy and deep copy?",
+                correctAnswer: "A shallow copy creates a new object but references the same nested objects. A deep copy creates a completely independent copy with all nested objects also copied.",
+                explanation: "Use copy.copy() for shallow copy and copy.deepcopy() for deep copy."
+            },
+            {
+                id: 50,
+                topic: "variables",
+                type: "mcq",
+                question: "What is the output of: print(bool('False'))",
+                options: [
+                    "True",
+                    "False",
+                    "Error",
+                    "None"
+                ],
+                correctAnswer: 0,
+                explanation: "Any non-empty string evaluates to True in a boolean context, even if the string contains the word 'False'."
+            },
+            // Operators (15 questions)
+            {
+                id: 51,
+                topic: "operators",
+                type: "mcq",
+                question: "What is the result of: 2 ** 3",
+                options: [
+                    "8",
+                    "6",
+                    "9",
+                    "5"
+                ],
+                correctAnswer: 0,
+                explanation: "The ** operator is for exponentiation, so 2**3 means 2 to the power of 3."
+            },
+            {
+                id: 52,
+                topic: "operators",
+                type: "tf",
+                question: "The 'is' operator checks if two variables have the same value.",
+                correctAnswer: false,
+                explanation: "The 'is' operator checks if two variables reference the same object, not if they have the same value."
+            },
+            {
+                id: 53,
+                topic: "operators",
+                type: "written",
+                question: "What is the difference between '==' and 'is' operators?",
+                correctAnswer: "'==' checks if two objects have the same value, while 'is' checks if they are the same object in memory.",
+                explanation: "For small integers and strings, Python may cache objects, so 'is' might return True even for different variables with same values."
+            },
+            {
+                id: 54,
+                topic: "operators",
+                type: "mcq",
+                question: "What is the output of: print(10 // 3)",
+                options: [
+                    "3",
+                    "3.333",
+                    "4",
+                    "1"
+                ],
+                correctAnswer: 0,
+                explanation: "The // operator performs floor division, returning the integer part of the quotient."
+            },
+            {
+                id: 55,
+                topic: "operators",
+                type: "mcq",
+                question: "Which operator has the highest precedence?",
+                options: [
+                    "**",
+                    "*",
+                    "+",
+                    "=="
+                ],
+                correctAnswer: 0,
+                explanation: "Exponentiation (**) has the highest precedence among these operators."
+            },
+            {
+                id: 56,
+                topic: "operators",
+                type: "tf",
+                question: "The 'not' operator has higher precedence than 'and' and 'or'.",
+                correctAnswer: true,
+                explanation: "In boolean operations, 'not' has the highest precedence, followed by 'and', then 'or'."
+            },
+            {
+                id: 57,
+                topic: "operators",
+                type: "written",
+                question: "What are membership operators in Python? Give examples.",
+                correctAnswer: "Membership operators are 'in' and 'not in'. Examples: 'a' in 'apple' returns True, 5 not in [1,2,3] returns True.",
+                explanation: "These operators test for membership in sequences like strings, lists, or tuples."
+            },
+            {
+                id: 58,
+                topic: "operators",
+                type: "mcq",
+                question: "What is the result of: 5 % 2",
+                options: [
+                    "1",
+                    "2",
+                    "0",
+                    "2.5"
+                ],
+                correctAnswer: 0,
+                explanation: "The % operator returns the remainder of division, so 5 divided by 2 leaves a remainder of 1."
+            },
+            {
+                id: 59,
+                topic: "operators",
+                type: "mcq",
+                question: "Which operator is used for string concatenation?",
+                options: [
+                    "+",
+                    "&",
+                    "||",
+                    "concat"
+                ],
+                correctAnswer: 0,
+                explanation: "The + operator concatenates strings in Python."
+            },
+            {
+                id: 60,
+                topic: "operators",
+                type: "tf",
+                question: "Python supports the ternary operator.",
+                correctAnswer: true,
+                explanation: "Python has a ternary operator: x if condition else y"
+            },
+            {
+                id: 61,
+                topic: "operators",
+                type: "written",
+                question: "What is operator overloading in Python?",
+                correctAnswer: "Operator overloading allows the same operator to have different meanings based on the context. For example, + can add numbers or concatenate strings.",
+                explanation: "Python allows custom classes to define their own behavior for operators through special methods like __add__ for +."
+            },
+            {
+                id: 62,
+                topic: "operators",
+                type: "mcq",
+                question: "What is the output of: print(2 + 3 * 4)",
+                options: [
+                    "14",
+                    "20",
+                    "24",
+                    "Error"
+                ],
+                correctAnswer: 0,
+                explanation: "Multiplication (*) has higher precedence than addition (+), so 3*4=12, then 2+12=14."
+            },
+            {
+                id: 63,
+                topic: "operators",
+                type: "mcq",
+                question: "Which operator is used for identity comparison?",
+                options: [
+                    "is",
+                    "==",
+                    "=",
+                    "id"
+                ],
+                correctAnswer: 0,
+                explanation: "The 'is' operator checks if two variables reference the same object."
+            },
+            {
+                id: 64,
+                topic: "operators",
+                type: "tf",
+                question: "The 'and' operator returns the first falsy value or the last value if all are truthy.",
+                correctAnswer: true,
+                explanation: "This is short-circuit evaluation - 'and' returns the first falsy value or the last operand if all are truthy."
+            },
+            {
+                id: 65,
+                topic: "operators",
+                type: "written",
+                question: "What is the difference between = and == in Python?",
+                correctAnswer: "= is the assignment operator used to assign values to variables. == is the equality operator used to compare if two values are equal.",
+                explanation: "Confusing these is a common source of errors, especially in conditional statements."
+            },
+            // Control Structures (20 questions)
+            {
+                id: 66,
+                topic: "control",
+                type: "mcq",
+                question: "Which keyword is used to start an if statement?",
+                options: [
+                    "if",
+                    "when",
+                    "check",
+                    "condition"
+                ],
+                correctAnswer: 0,
+                explanation: "The if keyword starts a conditional statement in Python."
+            },
+            {
+                id: 67,
+                topic: "control",
+                type: "tf",
+                question: "In Python, indentation is optional for code blocks.",
+                correctAnswer: false,
+                explanation: "Python uses indentation to define code blocks, so it's mandatory, not optional."
+            },
+            {
+                id: 68,
+                topic: "control",
+                type: "written",
+                question: "What is the purpose of the else clause in a loop?",
+                correctAnswer: "The else clause in a loop executes when the loop completes normally (not terminated by a break statement).",
+                explanation: "This is a unique Python feature not found in many other programming languages."
+            },
+            {
+                id: 69,
+                topic: "control",
+                type: "mcq",
+                question: "Which loop is used when the number of iterations is known?",
+                options: [
+                    "for loop",
+                    "while loop",
+                    "do-while loop",
+                    "repeat loop"
+                ],
+                correctAnswer: 0,
+                explanation: "for loops are typically used when the number of iterations is known, while while loops are used when it depends on a condition."
+            },
+            {
+                id: 70,
+                topic: "control",
+                type: "mcq",
+                question: "What does the break statement do?",
+                options: [
+                    "Exits the current loop",
+                    "Skips the current iteration",
+                    "Continues to the next iteration",
+                    "Ends the program"
+                ],
+                correctAnswer: 0,
+                explanation: "The break statement immediately exits the innermost loop."
+            },
+            {
+                id: 71,
+                topic: "control",
+                type: "tf",
+                question: "Python has a switch-case statement.",
+                correctAnswer: false,
+                explanation: "Python doesn't have a traditional switch-case statement. You can use if-elif-else chains or dictionaries as alternatives."
+            },
+            {
+                id: 72,
+                topic: "control",
+                type: "written",
+                question: "What is the difference between break and continue?",
+                correctAnswer: "break exits the entire loop, while continue skips the rest of the current iteration and moves to the next iteration.",
+                explanation: "break stops the loop entirely, continue only stops the current iteration."
+            },
+            {
+                id: 73,
+                topic: "control",
+                type: "mcq",
+                question: "What is the output of: for i in range(3): print(i)",
+                options: [
+                    "0 1 2",
+                    "1 2 3",
+                    "0 1 2 3",
+                    "1 2"
+                ],
+                correctAnswer: 0,
+                explanation: "range(3) generates numbers from 0 to 2 (3 is exclusive)."
+            },
+            {
+                id: 74,
+                topic: "control",
+                type: "mcq",
+                question: "Which statement is used to handle exceptions?",
+                options: [
+                    "try-except",
+                    "try-catch",
+                    "error-handle",
+                    "exception"
+                ],
+                correctAnswer: 0,
+                explanation: "Python uses try-except blocks for exception handling."
+            },
+            {
+                id: 75,
+                topic: "control",
+                type: "tf",
+                question: "The pass statement does nothing and is a placeholder.",
+                correctAnswer: true,
+                explanation: "pass is a null operation - it's used when syntax requires a statement but you don't want any code to execute."
+            },
+            {
+                id: 76,
+                topic: "control",
+                type: "written",
+                question: "What is the purpose of the range() function?",
+                correctAnswer: "The range() function generates a sequence of numbers, commonly used for looping a specific number of times in for loops.",
+                explanation: "range(stop) generates from 0 to stop-1; range(start, stop) from start to stop-1; range(start, stop, step) with specified step size."
+            },
+            {
+                id: 77,
+                topic: "control",
+                type: "mcq",
+                question: "What will this code output: x = 5; if x > 3: print('A') elif x > 2: print('B') else: print('C')",
+                options: [
+                    "A",
+                    "B",
+                    "C",
+                    "A B"
+                ],
+                correctAnswer: 0,
+                explanation: "Since x=5 is greater than 3, the first condition is true, so 'A' is printed and the rest is skipped."
+            },
+            {
+                id: 78,
+                topic: "control",
+                type: "mcq",
+                question: "Which keyword is used to define a custom exception?",
+                options: [
+                    "raise",
+                    "throw",
+                    "exception",
+                    "error"
+                ],
+                correctAnswer: 0,
+                explanation: "The raise keyword is used to raise exceptions in Python."
+            },
+            {
+                id: 79,
+                topic: "control",
+                type: "tf",
+                question: "A while loop will always execute at least once.",
+                correctAnswer: false,
+                explanation: "A while loop checks the condition first, so if the condition is initially false, it won't execute at all."
+            },
+            {
+                id: 80,
+                topic: "control",
+                type: "written",
+                question: "What is a nested loop? Give an example.",
+                correctAnswer: "A nested loop is a loop inside another loop. Example: for i in range(3): for j in range(2): print(i, j)",
+                explanation: "Nested loops are useful for working with multi-dimensional data structures."
+            },
+            {
+                id: 81,
+                topic: "control",
+                type: "mcq",
+                question: "What does the else clause in a try-except block do?",
+                options: [
+                    "Executes if no exception occurred",
+                    "Executes if an exception occurred",
+                    "Always executes",
+                    "Never executes"
+                ],
+                correctAnswer: 0,
+                explanation: "The else clause in try-except executes only if no exception was raised in the try block."
+            },
+            {
+                id: 82,
+                topic: "control",
+                type: "mcq",
+                question: "Which statement is used to skip the rest of the current iteration?",
+                options: [
+                    "continue",
+                    "break",
+                    "pass",
+                    "skip"
+                ],
+                correctAnswer: 0,
+                explanation: "The continue statement skips the rest of the current iteration and moves to the next iteration."
+            },
+            {
+                id: 83,
+                topic: "control",
+                type: "tf",
+                question: "In Python, you can have multiple except blocks for different exceptions.",
+                correctAnswer: true,
+                explanation: "You can have multiple except clauses to handle different types of exceptions differently."
+            },
+            {
+                id: 84,
+                topic: "control",
+                type: "written",
+                question: "What is the difference between a syntax error and an exception?",
+                correctAnswer: "Syntax errors occur when Python can't parse the code (incorrect syntax). Exceptions occur during execution when code is syntactically correct but causes an error.",
+                explanation: "Syntax errors prevent code from running; exceptions occur during runtime."
+            },
+            {
+                id: 85,
+                topic: "control",
+                type: "mcq",
+                question: "What is the output of: for i in range(1, 5, 2): print(i)",
+                options: [
+                    "1 3",
+                    "1 2 3 4",
+                    "1 3 5",
+                    "2 4"
+                ],
+                correctAnswer: 0,
+                explanation: "range(1, 5, 2) starts at 1, stops before 5, with step 2, so it generates 1 and 3."
+            },
+            // Functions (15 questions)
+            {
+                id: 86,
+                topic: "functions",
+                type: "mcq",
+                question: "Which keyword is used to define a function?",
+                options: [
+                    "def",
+                    "function",
+                    "define",
+                    "func"
+                ],
+                correctAnswer: 0,
+                explanation: "The def keyword is used to define functions in Python."
+            },
+            {
+                id: 87,
+                topic: "functions",
+                type: "tf",
+                question: "A function in Python must always return a value.",
+                correctAnswer: false,
+                explanation: "If no return statement is specified, a function returns None by default."
+            },
+            {
+                id: 88,
+                topic: "functions",
+                type: "written",
+                question: "What is the difference between parameters and arguments?",
+                correctAnswer: "Parameters are variables in the function definition. Arguments are the actual values passed to the function when it's called.",
+                explanation: "Parameters define what a function accepts; arguments are what you pass to it."
+            },
+            {
+                id: 89,
+                topic: "functions",
+                type: "mcq",
+                question: "What type of parameters are defined with a default value?",
+                options: [
+                    "Default parameters",
+                    "Keyword parameters",
+                    "Positional parameters",
+                    "Required parameters"
+                ],
+                correctAnswer: 0,
+                explanation: "Default parameters have a default value specified in the function definition."
+            },
+            {
+                id: 90,
+                topic: "functions",
+                type: "mcq",
+                question: "Which symbol is used for variable-length arguments?",
+                options: [
+                    "*",
+                    "&",
+                    "#",
+                    "$"
+                ],
+                correctAnswer: 0,
+                explanation: "The * symbol is used before a parameter name to accept variable-length positional arguments."
+            },
+            {
+                id: 91,
+                topic: "functions",
+                type: "tf",
+                question: "Functions in Python can return multiple values.",
+                correctAnswer: true,
+                explanation: "Python functions can return multiple values as a tuple, which can be unpacked."
+            },
+            {
+                id: 92,
+                topic: "functions",
+                type: "written",
+                question: "What is a lambda function? Provide an example.",
+                correctAnswer: "A lambda function is a small anonymous function. Example: square = lambda x: x**2",
+                explanation: "Lambda functions are limited to a single expression and are often used for short, simple operations."
+            },
+            {
+                id: 93,
+                topic: "functions",
+                type: "mcq",
+                question: "What is the scope of a variable defined inside a function?",
+                options: [
+                    "Local scope",
+                    "Global scope",
+                    "Module scope",
+                    "Class scope"
+                ],
+                correctAnswer: 0,
+                explanation: "Variables defined inside a function have local scope and are only accessible within that function."
+            },
+            {
+                id: 94,
+                topic: "functions",
+                type: "mcq",
+                question: "Which keyword is used to access a global variable inside a function?",
+                options: [
+                    "global",
+                    "nonlocal",
+                    "extern",
+                    "public"
+                ],
+                correctAnswer: 0,
+                explanation: "The global keyword is used to declare that a variable inside a function refers to a global variable."
+            },
+            {
+                id: 95,
+                topic: "functions",
+                type: "tf",
+                question: "In Python, functions are first-class objects.",
+                correctAnswer: true,
+                explanation: "This means functions can be assigned to variables, passed as arguments, and returned from other functions."
+            },
+            {
+                id: 96,
+                topic: "functions",
+                type: "written",
+                question: "What is recursion? Provide an example of a recursive function.",
+                correctAnswer: "Recursion is when a function calls itself. Example: def factorial(n): return 1 if n == 0 else n * factorial(n-1)",
+                explanation: "Recursive functions need a base case to prevent infinite recursion."
+            },
+            {
+                id: 97,
+                topic: "functions",
+                type: "mcq",
+                question: "What does the *args parameter do?",
+                options: [
+                    "Accepts variable number of positional arguments",
+                    "Accepts variable number of keyword arguments",
+                    "Accepts only one argument",
+                    "Is required for all functions"
+                ],
+                correctAnswer: 0,
+                explanation: "*args allows a function to accept any number of positional arguments as a tuple."
+            },
+            {
+                id: 98,
+                topic: "functions",
+                type: "mcq",
+                question: "What is the purpose of the return statement?",
+                options: [
+                    "To exit a function and optionally return a value",
+                    "To print a value to the console",
+                    "To define a function",
+                    "To import a module"
+                ],
+                correctAnswer: 0,
+                explanation: "The return statement exits the function and can optionally return a value to the caller."
+            },
+            {
+                id: 99,
+                topic: "functions",
+                type: "tf",
+                question: "Python supports function overloading.",
+                correctAnswer: false,
+                explanation: "Python doesn't support traditional function overloading. The latest definition of a function overwrites previous ones."
+            },
+            {
+                id: 100,
+                topic: "functions",
+                type: "written",
+                question: "What are docstrings and how are they used?",
+                correctAnswer: "Docstrings are string literals that document functions, modules, or classes. They are defined with triple quotes immediately after the definition and can be accessed via __doc__ attribute.",
+                explanation: "Docstrings help document code and are used by help() and various documentation tools."
+            }
+        ];
+
+        // Function to display questions
+        function displayQuestions(filteredQuestions) {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            filteredQuestions.forEach(q => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                
+                let optionsHTML = '';
+                if (q.type === 'mcq') {
+                    q.options.forEach((option, index) => {
+                        optionsHTML += `
+                            <div class="option">
+                                <input type="radio" id="q${q.id}opt${index}" name="q${q.id}" value="${index}">
+                                <label for="q${q.id}opt${index}">${option}</label>
+                            </div>
+                        `;
+                    });
+                } else if (q.type === 'tf') {
+                    optionsHTML = `
+                        <div class="option">
+                            <input type="radio" id="q${q.id}opt0" name="q${q.id}" value="0">
+                            <label for="q${q.id}opt0">True</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q${q.id}opt1" name="q${q.id}" value="1">
+                            <label for="q${q.id}opt1">False</label>
+                        </div>
+                    `;
+                } else { // Written question
+                    optionsHTML = `
+                        <textarea id="q${q.id}answer" rows="4" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;" placeholder="Type your answer here..."></textarea>
+                    `;
+                }
+                
+                const correctAnswerText = q.type === 'mcq' 
+                    ? q.options[q.correctAnswer] 
+                    : (q.type === 'tf' ? (q.correctAnswer ? 'True' : 'False') : q.correctAnswer);
+                
+                questionCard.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">Question ${q.id}</div>
+                        <div class="question-type">${getTopicName(q.topic)} • ${q.type.toUpperCase()}</div>
+                    </div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">${optionsHTML}</div>
+                    <button class="show-answer" data-id="${q.id}">Show Answer</button>
+                    <div class="answer-section" id="answer-${q.id}">
+                        <div class="correct-answer">Correct Answer: ${correctAnswerText}</div>
+                        <div class="explanation">${q.explanation}</div>
+                    </div>
+                `;
+                
+                container.appendChild(questionCard);
+            });
+            
+            // Add event listeners to "Show Answer" buttons
+            document.querySelectorAll('.show-answer').forEach(button => {
+                button.addEventListener('click', function() {
+                    const questionId = this.getAttribute('data-id');
+                    const answerSection = document.getElementById(`answer-${questionId}`);
+                    answerSection.style.display = 'block';
+                    this.style.display = 'none';
+                });
+            });
+        }
+
+        // Helper function to get topic name
+        function getTopicName(topic) {
+            const topicMap = {
+                'computer': 'Computer Basics',
+                'python-intro': 'Python Intro',
+                'variables': 'Variables & Types',
+                'operators': 'Operators',
+                'control': 'Control Structures',
+                'functions': 'Functions'
+            };
+            return topicMap[topic] || topic;
+        }
+
+        // Filter questions based on selections
+        function filterQuestions() {
+            const topicFilter = document.getElementById('topic-filter').value;
+            const typeFilter = document.getElementById('type-filter').value;
+            
+            let filteredQuestions = questions;
+            
+            if (topicFilter !== 'all') {
+                filteredQuestions = filteredQuestions.filter(q => q.topic === topicFilter);
+            }
+            
+            if (typeFilter !== 'all') {
+                filteredQuestions = filteredQuestions.filter(q => q.type === typeFilter);
+            }
+            
+            displayQuestions(filteredQuestions);
+        }
+
+        // Check all answers
+        function checkAllAnswers() {
+            let correctCount = 0;
+            let totalAnswered = 0;
+            
+            questions.forEach(q => {
+                if (q.type === 'mcq' || q.type === 'tf') {
+                    const selectedOption = document.querySelector(`input[name="q${q.id}"]:checked`);
+                    
+                    if (selectedOption) {
+                        totalAnswered++;
+                        const userAnswer = parseInt(selectedOption.value);
+                        
+                        if (q.type === 'mcq') {
+                            if (userAnswer === q.correctAnswer) {
+                                correctCount++;
+                            }
+                        } else { // True/False
+                            // For T/F, correctAnswer is boolean, but our values are 0 (true) and 1 (false)
+                            // So we need to convert: if correctAnswer is true, we expect 0; if false, we expect 1
+                            if ((q.correctAnswer && userAnswer === 0) || (!q.correctAnswer && userAnswer === 1)) {
+                                correctCount++;
+                            }
+                        }
+                    }
+                } else {
+                    // For written questions, we'll just count them as answered if they have text
+                    const textArea = document.getElementById(`q${q.id}answer`);
+                    if (textArea && textArea.value.trim() !== '') {
+                        totalAnswered++;
+                        // We can't automatically check written answers, so we won't count them as correct/incorrect
+                    }
+                }
+                
+                // Show answer section for this question
+                const answerSection = document.getElementById(`answer-${q.id}`);
+                if (answerSection) {
+                    answerSection.style.display = 'block';
+                    const showButton = document.querySelector(`button[data-id="${q.id}"]`);
+                    if (showButton) {
+                        showButton.style.display = 'none';
+                    }
+                }
+            });
+            
+            if (totalAnswered === 0) {
+                alert('Please answer at least one question before checking answers.');
+                return;
+            }
+            
+            const score = Math.round((correctCount / totalAnswered) * 100);
+            alert(`You answered ${correctCount} out of ${totalAnswered} auto-gradable questions correctly. Score: ${score}%`);
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayQuestions(questions);
+            
+            // Add event listeners to filters
+            document.getElementById('topic-filter').addEventListener('change', filterQuestions);
+            document.getElementById('type-filter').addEventListener('change', filterQuestions);
+            
+            // Add event listener to check answers button
+            document.getElementById('check-answers').addEventListener('click', checkAllAnswers);
+        });
+    </script>
+</body>
+</html>
